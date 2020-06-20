@@ -1,0 +1,28 @@
+version: "3.2"
+
+services:
+
+  jenkins:
+    container_name: jenkins
+    image: myjenkins
+    expose:
+      - "10080"
+    environment:
+      - VIRTUAL_HOST="jenkins.somsi"
+      - JENKINS_OPTS="--httpPort=10080"
+    networks:
+      - master
+    volumes:
+      - ./jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=10080"
+      - "traefik.http.routers.jenkins.rule=Host(`jenkins.somsi`)"
+      - "traefik.http.routers.jenkins.entrypoints=web"
+      - "traefik.http.routers.jenkins.service=jenkins"
+      - "traefik.http.services.jenkins.loadbalancer.server.port=10080"
+      
+networks:
+  master:
+    external: true
