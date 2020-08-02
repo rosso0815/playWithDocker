@@ -1,0 +1,24 @@
+dn: ou=users,dc=pfistera,dc=ch
+objectClass: organizationalUnit
+ou: users
+
+dn: uid=test,ou=users,dc=pfistera,dc=ch
+objectclass: inetOrgPerson
+objectclass: person
+givenName: Test
+sn: User
+mail: test@example.org
+uid: test
+userPassword: MyAlsoSecretPassword
+cn: Test User
+
+dn: uid=test1,ou=users,dc=pfistera,dc=ch
+objectclass: inetOrgPerson
+objectclass: person
+givenName: Test1
+sn: User1
+mail: test1@example.org
+uid: test1
+userPassword: MyAlsoSecretPassword
+cn: Test User
+

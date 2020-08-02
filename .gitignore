@@ -1,0 +1,5 @@
+.DS_Store
+.vscode
+traefik/drone/drone
+traefik/gitea/data
+traefik/nexus/nexus-data
