@@ -3,3 +3,5 @@ traefik/drone/drone
 traefik/gitea/data
 traefik/nexus/nexus-data
 traefik/semaphore-ansible/mysql_data
+traefik/airflow/logs/**
+
