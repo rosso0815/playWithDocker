@@ -3,31 +3,34 @@ version: "3.2"
 services:
 
   jenkins:
-    container_name: jenkins
-    hostname: jenkins
-    image: myjenkins
-    expose:
-      - "10080"
-    environment:
-      - VIRTUAL_HOST="jenkins"
-      - JENKINS_OPTS="--httpPort=10080"
-    networks:
-      - master
-    dns:
-      8.8.4.4
-    extra_hosts:
-      - "gitea.somsi:192.168.0.110"
+    # container_name: jenkins
+    # hostname: jenkins
+    image: jenkins/jenkins:lts-centos7
+    ports:
+      - "8080:8080"
+    # expose:
+    #   - "50000"
+    #   - "8080"
+#    environment:
+ #     - VIRTUAL_HOST="jenkins"
+      #- JENKINS_OPTS="--httpPort=8080"
+    # networks:
+    #   - master
+    # dns:
+    #   8.8.4.4
+    # extra_hosts:
+    #   - "gitea.somsi:192.168.0.110"
     volumes:
       - ./jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=10080"
-      - "traefik.http.routers.jenkins.rule=Host(`jenkins.somsi`)"
-      - "traefik.http.routers.jenkins.entrypoints=web"
-      - "traefik.http.routers.jenkins.service=jenkins"
-      - "traefik.http.services.jenkins.loadbalancer.server.port=10080"
+ #   labels:
+      # - "traefik.enable=true"
+      # - "traefik.port=10080"
+      # - "traefik.http.routers.jenkins.rule=Host(`jenkins.somsi`)"
+      # - "traefik.http.routers.jenkins.entrypoints=web"
+      # - "traefik.http.routers.jenkins.service=jenkins"
+      # - "traefik.http.services.jenkins.loadbalancer.server.port=10080"
       
-networks:
-  master:
-    external: true
+# networks:
+#   master:
+#     external: true

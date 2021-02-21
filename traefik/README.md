@@ -2,7 +2,7 @@
 https://blog.kilian.io/server-setup/
 
 
-docker run --network=backbone  -it centos:centos7 /bin/bash
+docker run --network=master  -it centos:centos7 /bin/bash
 
 
 docker run --network=localhost  --rm alpine cat /etc/resolv.conf

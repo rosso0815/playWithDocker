@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   nexus:
-    image: sonatype/nexus3:3.24.0
+    image: sonatype/nexus3:3.28.1
     container_name: nexus
     hostname: nexus
     networks:
