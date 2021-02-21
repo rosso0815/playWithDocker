@@ -1,0 +1,79 @@
+version: "3.7"
+
+# networks:
+#   master:
+#     external: true
+
+services:
+
+  mysql:
+    image: mariadb:10
+    environment:
+      # MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: semaphore
+      MYSQL_DATABASE: semaphore
+      MYSQL_USER: semaphore
+      MYSQL_PASSWORD: semaphore
+    volumes:
+     - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  semaphore:
+    image: ansiblesemaphore/semaphore:v2.6.7
+    #    hostname: drone
+    container_name: semaphore
+    # restart: always
+    ports:
+      - "3000:3000"
+    # networks:
+    #   - master
+    # dns:
+    #   - 192.168.0.110
+    volumes:
+      - ./semaphore:/data
+
+    environment:
+      SEMAPHORE_DB_USER: semaphore
+      SEMAPHORE_DB_PASS: semaphore
+      SEMAPHORE_DB_HOST: mysql
+      SEMAPHORE_DB_PORT: 3306
+      SEMAPHORE_DB: semaphore
+      SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
+      SEMAPHORE_ADMIN_PASSWORD: password
+      SEMAPHORE_ADMIN_NAME: admin
+      SEMAPHORE_ADMIN_EMAIL: admin@localhost
+      SEMAPHORE_ADMIN: admin
+
+      # - DRONE_GITEA_SERVER=http://gitea.localnet
+      # - DRONE_GIT_ALWAYS_AUTH=true
+      # - DRONE_GITEA_CLIENT_ID=f2667678-1a0c-4b3a-8ffc-eb6c0a3f1ff1
+      # - DRONE_GITEA_CLIENT_SECRET=FA_Vs2MGfvP8m1ldlZ2Hic4n04yLfeapg7mcIbI5RH4=
+      # - DRONE_GITEA_SKIP_VERIFY=false
+      # - DRONE_GITEA_DEBUG=true
+      # - DRONE_RUNNER_CAPACITY=2
+      # - DRONE_SERVER_HOST=drone.localnet
+      # - DRONE_SERVER_PROTO=http
+      # - DRONE_SERVER_PORT=:4000
+      # - DRONE_TLS_AUTOCERT=false
+      # - DRONE_DEBUG=true
+      # - DRONE_LOGS_DEBUG=true
+      # - DRONE_LOGS_TRACE=true
+      # - DRONE_LOGS_TEXT=true
+      # - DRONE_DEBUG_PRETTY=true
+      # - DRONE_RUNNER_NETWORKS=master
+      # - DRONE_SECRET=1234
+      # - DRONE_RPC_SECRET=secret
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.port=4000"
+    #   - "traefik.http.routers.drone.rule=Host(`drone.localnet`)"
+    #   - "traefik.http.routers.drone.entrypoints=web"
+    #   - "traefik.http.routers.drone.service=drone"
+    #   - "traefik.http.services.drone.loadbalancer.server.port=4000"
+
+
+    depends_on:
+      - mysql
+
+
