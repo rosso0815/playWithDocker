@@ -12,10 +12,12 @@ RUN yum -y update && \
     yum clean all && \
     wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo && \
     rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key && \
-    yum -y install jenkins && \
     yum -y install java-1.8.0-openjdk && \
     yum -y install java-1.8.0-openjdk-devel && \
     yum -y install java-1.8.0-openjdk-src && \
+        yum -y install java-1.11.0-openjdk && \
+    yum -y install java-1.11.0-openjdk-devel && \
+    yum -y install java-1.11.0-openjdk-src && \
     yum -y install rpmdevtools && \
     yum -y install docker && \
     yum clean all && \

@@ -1,16 +1,17 @@
-version: "3.2"
+version: "3.7"
 
 services:
   nexus:
-    image: sonatype/nexus3:3.28.1
+    image: sonatype/nexus3:3.30.0
     container_name: nexus
     hostname: nexus
+    restart: always    
     networks:
       - master
     dns:
-      8.8.4.4
-    extra_hosts:
-      - "gitea.somsi:192.168.0.110"
+      192.168.0.110
+      #extra_hosts:
+      #- "gitea.somsi:192.168.0.110"
     ports:
       - "8081:8081"
     volumes:
@@ -18,7 +19,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.port=8081"
-      - "traefik.http.routers.nexus.rule=Host(`nexus.somsi`)"
+      - "traefik.http.routers.nexus.rule=Host(`nexus.localnet`)"
       - "traefik.http.routers.nexus.entrypoints=web"
       - "traefik.http.routers.nexus.service=nexus"
       - "traefik.http.services.nexus.loadbalancer.server.port=8081"
